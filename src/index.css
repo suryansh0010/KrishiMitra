@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 138 24% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 138 24% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 138 24% 15%;
+
+    --primary: 138 76% 22%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 138 40% 95%;
+    --secondary-foreground: 138 76% 22%;
+
+    --muted: 138 20% 96%;
+    --muted-foreground: 138 15% 45%;
+
+    --accent: 138 50% 35%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 138 30% 90%;
+    --input: 138 30% 90%;
+    --ring: 138 76% 22%;
+
+    --radius: 0.75rem;
+    
+    /* Agricultural theme colors */
+    --agriculture-green: 138 76% 22%;
+    --agriculture-light: 138 50% 88%;
+    --agriculture-dark: 138 80% 15%;
+    --earth-brown: 25 45% 35%;
+    --harvest-gold: 45 95% 55%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--agriculture-green)), hsl(var(--agriculture-dark)));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--agriculture-light)));
+    
+    /* Effects */
+    --shadow-agricultural: 0 10px 30px -10px hsl(var(--agriculture-green) / 0.2);
+    --shadow-elevated: 0 20px 40px -15px hsl(var(--agriculture-green) / 0.3);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 138 30% 8%;
+    --foreground: 138 15% 92%;
+
+    --card: 138 25% 10%;
+    --card-foreground: 138 15% 92%;
+
+    --popover: 138 25% 10%;
+    --popover-foreground: 138 15% 92%;
+
+    --primary: 138 70% 45%;
+    --primary-foreground: 138 30% 8%;
+
+    --secondary: 138 20% 15%;
+    --secondary-foreground: 138 15% 92%;
+
+    --muted: 138 15% 12%;
+    --muted-foreground: 138 10% 65%;
+
+    --accent: 138 60% 35%;
+    --accent-foreground: 138 15% 92%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 138 15% 20%;
+    --input: 138 15% 20%;
+    --ring: 138 70% 45%;
+    
+    /* Dark mode agricultural colors */
+    --agriculture-green: 138 70% 45%;
+    --agriculture-light: 138 30% 25%;
+    --agriculture-dark: 138 80% 15%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
