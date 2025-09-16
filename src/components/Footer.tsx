@@ -8,7 +8,7 @@ const Footer = () => {
     { name: "Terms & Conditions", href: "#terms" }
   ];
 
-  return (
+  return ( 
     <footer className="bg-agriculture-dark text-white">
       <div className="container px-4 py-12">
         <div className="grid md:grid-cols-3 gap-8">
