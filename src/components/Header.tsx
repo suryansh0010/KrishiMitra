@@ -52,12 +52,19 @@ const Header = () => {
               <SelectItem value="bn">বাংলা</SelectItem>
             </SelectContent>
           </Select>
-          <Button variant="outline" size="sm">
+          {/* <Button variant="outline" size="sm">
             Login
           </Button>
           <Button size="sm" className="bg-gradient-hero border-0">
             Signup
-          </Button>
+          </Button> */}
+          <a 
+            href="/auth" 
+            className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-gradient-hero rounded-lg shadow hover:shadow-md transition-all border-0"
+          >
+            Get Started
+          </a>
+
         </div>
 
         {/* Mobile Menu */}
