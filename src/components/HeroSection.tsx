@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Leaf, Bug, ShoppingCart, MapPin, Upload, Image } from "lucide-react";
 import heroFarmer from "@/assets/hero-farmer.jpg";
-
+ 
 const HeroSection = () => {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [uploadedImage, setUploadedImage] = useState(false);
