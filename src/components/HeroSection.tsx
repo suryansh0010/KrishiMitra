@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -6,14 +6,21 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Leaf, Bug, ShoppingCart, MapPin, Upload, Image } from "lucide-react";
+import { Leaf, Bug, ShoppingCart, MapPin, Upload, Image, X } from "lucide-react";
 import heroFarmer from "@/assets/hero-farmer.jpg";
- 
+
 const HeroSection = () => {
   const [selectedLocation, setSelectedLocation] = useState("");
-  const [uploadedImage, setUploadedImage] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState<{
+    file: File;
+    preview: string;
+    name: string;
+    size: number;
+  } | null>(null);
   const [showRecommendation, setShowRecommendation] = useState(false);
   const [showPesticide, setShowPesticide] = useState(false);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const locationCrops = {
     "uttar-pradesh": ["Wheat", "Rice", "Sugarcane", "Maize"],
@@ -35,8 +42,49 @@ const HeroSection = () => {
   };
 
   const handleImageUpload = () => {
-    setUploadedImage(true);
-    setShowPesticide(true);
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setUploadedImage({
+          file: file,
+          preview: e.target?.result as string,
+          name: file.name,
+          size: file.size
+        });
+        
+        // Simulate analysis
+        setIsAnalyzing(true);
+        setTimeout(() => {
+          setIsAnalyzing(false);
+          setShowPesticide(true);
+        }, 2000);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      alert('Please select a valid image file');
+    }
+  };
+
+  const removeImage = () => {
+    setUploadedImage(null);
+    setShowPesticide(false);
+    setIsAnalyzing(false);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
   return (
@@ -157,28 +205,84 @@ const HeroSection = () => {
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="image-upload">Upload Crop Image</Label>
-                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center">
-                    <Upload className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-                    <p className="text-sm text-muted-foreground mb-2">Click to upload or drag and drop</p>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={handleImageUpload}
-                    >
-                      <Image className="h-4 w-4 mr-2" />
-                      Choose File
-                    </Button>
-                  </div>
+                  
+                  {!uploadedImage ? (
+                    <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-agriculture-green transition-colors">
+                      <Upload className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
+                      <p className="text-sm text-muted-foreground mb-2">Click to upload or drag and drop</p>
+                      <p className="text-xs text-muted-foreground mb-4">PNG, JPG, JPEG up to 10MB</p>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={handleImageUpload}
+                        className="border-agriculture-green text-agriculture-green hover:bg-agriculture-light"
+                      >
+                        <Image className="h-4 w-4 mr-2" />
+                        Choose File
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="border border-border rounded-lg p-4">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0">
+                          <img 
+                            src={uploadedImage.preview} 
+                            alt="Uploaded crop"
+                            className="w-16 h-16 object-cover rounded-lg"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-foreground truncate">
+                            {uploadedImage.name}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            {formatFileSize(uploadedImage.size)}
+                          </p>
+                          {isAnalyzing && (
+                            <div className="mt-2">
+                              <div className="flex items-center gap-2">
+                                <div className="w-4 h-4 border-2 border-agriculture-green border-t-transparent rounded-full animate-spin"></div>
+                                <span className="text-sm text-agriculture-green">Analyzing image...</span>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                        <button 
+                          onClick={removeImage}
+                          className="flex-shrink-0 p-1 text-muted-foreground hover:text-destructive transition-colors"
+                        >
+                          <X className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                  
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="hidden"
+                    id="image-upload"
+                  />
                 </div>
                 
-                {showPesticide && uploadedImage && (
+                {showPesticide && uploadedImage && !isAnalyzing && (
                   <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                    <h4 className="font-semibold text-red-800 mb-3">Detection Result:</h4>
+                    <h4 className="font-semibold text-red-800 mb-3 flex items-center gap-2">
+                      <Bug className="h-4 w-4" />
+                      Detection Result:
+                    </h4>
                     <div className="space-y-2">
                       <p className="text-sm"><strong>Detected:</strong> Rice Leaf Blight</p>
+                      <p className="text-sm"><strong>Confidence:</strong> 94.2%</p>
                       <p className="text-sm"><strong>Recommended Treatment:</strong> Copper Oxychloride 50% WP</p>
                       <p className="text-sm"><strong>Dosage:</strong> 2-3 gm per liter of water</p>
                       <p className="text-sm"><strong>Application:</strong> Spray during early morning or evening</p>
+                      <p className="text-sm"><strong>Frequency:</strong> Repeat after 15 days if needed</p>
+                    </div>
+                    <div className="mt-3 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs text-yellow-800">
+                      <strong>⚠️ Safety Note:</strong> Always read the pesticide label and follow safety guidelines. Wear protective equipment during application.
                     </div>
                   </div>
                 )}
