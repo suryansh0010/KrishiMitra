@@ -25,7 +25,7 @@ This project provides a user-friendly web interface for accessing agricultural d
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/krishi-sahay-web-main.git
+    git clone https://github.com/suryansh0010/krishi-sahay-web-main.git
     cd krishi-sahay-web-main
     ```
 
@@ -38,9 +38,7 @@ This project provides a user-friendly web interface for accessing agricultural d
 
 3. **Start the development server:**
     ```bash
-    npm start
-    # or
-    yarn start
+    npm run dev
     ```
 
 4. **Open your browser and visit:**
