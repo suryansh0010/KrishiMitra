@@ -7,7 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/auth"; 
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient(); 
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

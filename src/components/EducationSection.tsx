@@ -5,7 +5,7 @@ import agriculturalSafety from "@/assets/agricultural-safety.jpg";
 import organicAgriculture from "@/assets/organic-agriculture.jpg";
 import agricultureTechnology from "@/assets/agriculture-technology.jpg";
 
-const EducationSection = () => {
+const EducationSection = () => { 
   const educationCards = [ 
     {
       id: 1,
