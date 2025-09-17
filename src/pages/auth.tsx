@@ -19,7 +19,7 @@ export default function Auth() {
         
         {/* Title */}
         <h2 className="text-2xl font-bold text-green-700 text-center mb-6 transition-all duration-500">
-          {isLogin ? "Welcome Back 👋" : "Create an Account 🌱"}
+          {isLogin ? "Welcome Back" : "Create an Account"}
         </h2>
 
         {/* Form Section */}
