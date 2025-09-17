@@ -4,7 +4,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Menu, Sprout, Globe } from "lucide-react";
 
-const Header = () => {
+const Header = () => { 
   const [isOpen, setIsOpen] = useState(false);
 
   const navigation = [

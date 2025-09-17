@@ -2,7 +2,7 @@ import { Sprout, MapPin, Phone } from "lucide-react";
 
 const Footer = () => {
   const navigationLinks = [
-    { name: "Privacy Policy", href: "#privacy" },
+    { name: "Privacy Policy", href: "#privacy" }, 
     { name: "About Us", href: "#about" },
     { name: "Copyright Policy", href: "#copyright" },
     { name: "Terms & Conditions", href: "#terms" }
