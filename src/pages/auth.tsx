@@ -36,7 +36,7 @@ export default function Auth() {
             </div>
             <div>
               <label className="block text-gray-600 mb-1">Password</label>
-              <input
+                <input
                 type="password"
                 placeholder="Enter your password"
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-600 outline-none"
