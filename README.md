@@ -1,6 +1,6 @@
-# Krishi Sahay Web
+# KrishiMitra
 
-Krishi Sahay Web is a platform designed to assist farmers and agricultural stakeholders with resources, information, and tools to improve productivity and efficiency in agriculture.
+KrishiMitra is a platform designed to assist farmers and agricultural stakeholders with resources, information, and tools to improve productivity and efficiency in agriculture.
 
 ## Overview
 
@@ -8,11 +8,11 @@ This project provides a user-friendly web interface for accessing agricultural d
 
 ## Features
 
-- Agricultural news and updates
-- Weather forecasts for farming regions
-- Expert consultation and support
-- Crop management tips and resources
-- Community forums for knowledge sharing
+- Suggests the best crops to grow based on soil, weather, and location.
+
+- Provides safe and suitable pesticide options for crop protection.
+
+- Time market prices of crops to help farmers make informed decisions.
 
 ## Setup Instructions
 
@@ -25,7 +25,7 @@ This project provides a user-friendly web interface for accessing agricultural d
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/krishi-sahay-web-main.git
+    git clone https://github.com/suryansh0010/krishi-sahay-web-main.git
     cd krishi-sahay-web-main
     ```
 
@@ -38,9 +38,7 @@ This project provides a user-friendly web interface for accessing agricultural d
 
 3. **Start the development server:**
     ```bash
-    npm start
-    # or
-    yarn start
+    npm run dev
     ```
 
 4. **Open your browser and visit:**
