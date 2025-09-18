@@ -481,12 +481,12 @@ const HeroSection = () => {
                   </div>
                   <CardTitle className="text-xl text-agriculture-green">Crop Disease Analyser</CardTitle>
                   <CardDescription>
-                    Upload crop images to identify Disease and get treatment recommendations.
+                    Upload crop images to identify diseases and get treatment recommendations.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="text-center">
                   <Button className="w-full bg-gradient-hero border-0 hover:shadow-lg">
-                    Identify Pests
+                    Identify Diseases
                   </Button>
                 </CardContent>
               </Card>
@@ -495,10 +495,10 @@ const HeroSection = () => {
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
                   <Bug className="h-5 w-5 text-agriculture-green" />
-                  Pesticide Recommendation
+                  Disease Analyser 
                 </DialogTitle>
                 <DialogDescription>
-                  Upload an image of your crop to identify diseases and get treatment recommendations.
+                  Upload an image of your crop to identify Disease and get treatment recommendations.
                 </DialogDescription>
               </DialogHeader>
               <div className="space-y-4">
@@ -567,21 +567,23 @@ const HeroSection = () => {
                 </div>
                 
                 {showPesticide && uploadedImage && !isAnalyzing && (
-                  <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                    <h4 className="font-semibold text-red-800 mb-3 flex items-center gap-2">
-                      <Bug className="h-4 w-4" />
-                      Detection Result:
+                  <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <h4 className="font-semibold text-blue-800 mb-3 flex items-center gap-2">
+                      <Leaf className="h-4 w-4" />
+                      Disease Detection Result:
                     </h4>
                     <div className="space-y-2">
-                      <p className="text-sm"><strong>Detected:</strong> Rice Leaf Blight</p>
-                      <p className="text-sm"><strong>Confidence:</strong> 94.2%</p>
-                      <p className="text-sm"><strong>Recommended Treatment:</strong> Copper Oxychloride 50% WP</p>
-                      <p className="text-sm"><strong>Dosage:</strong> 2-3 gm per liter of water</p>
-                      <p className="text-sm"><strong>Application:</strong> Spray during early morning or evening</p>
-                      <p className="text-sm"><strong>Frequency:</strong> Repeat after 15 days if needed</p>
+                      <p className="text-sm"><strong>Disease Detected:</strong> Tomato Late Blight</p>
+                      <p className="text-sm"><strong>Confidence:</strong> 89.7%</p>
+                      <p className="text-sm"><strong>Disease Type:</strong> Fungal Disease</p>
+                      <p className="text-sm"><strong>Recommended Fungicide:</strong> Mancozeb 75% WP</p>
+                      {/* <p className="text-sm"><strong>Dosage:</strong> 2.5-3 gm per liter of water</p> */}
+                      {/* <p className="text-sm"><strong>Application Method:</strong> Foliar spray covering both leaf surfaces</p> */}
+                      <p className="text-sm"><strong>Treatment Schedule:</strong> Apply every 7-10 days until symptoms subside</p>
+                      <p className="text-sm"><strong>Prevention:</strong> Ensure proper drainage and avoid overhead watering</p>
                     </div>
-                    <div className="mt-3 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs text-yellow-800">
-                      <strong>⚠️ Safety Note:</strong> Always read the pesticide label and follow safety guidelines. Wear protective equipment during application.
+                    <div className="mt-3 p-2 bg-orange-50 border border-orange-200 rounded text-xs text-orange-800">
+                      <strong>⚠️ Important:</strong> Remove infected plant parts immediately. Follow label instructions and use protective equipment. Avoid spraying during flowering period.
                     </div>
                   </div>
                 )}
