@@ -498,7 +498,7 @@ const HeroSection = () => {
                   Pesticide Recommendation
                 </DialogTitle>
                 <DialogDescription>
-                  Upload an image of your crop to identify pests and get treatment recommendations.
+                  Upload an image of your crop to identify diseases and get treatment recommendations.
                 </DialogDescription>
               </DialogHeader>
               <div className="space-y-4">
