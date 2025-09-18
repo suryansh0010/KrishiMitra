@@ -8,11 +8,11 @@ This project provides a user-friendly web interface for accessing agricultural d
 
 ## Features
 
-- Suggests the best crops to grow based on soil, weather, and location.
+- Predicts potential crop diseases by analyzing plant images and local weather conditions.
 
-- Provides safe and suitable pesticide options for crop protection.
+- Provides preventive measures and treatment recommendations including organic, chemical, and cultural practices.
 
-- Time market prices of crops to help farmers make informed decisions.
+- Sends real-time risk alerts and personalized advice to help farmers protect crops proactively.
 
 ## Setup Instructions
 
