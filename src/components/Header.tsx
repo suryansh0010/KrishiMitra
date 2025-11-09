@@ -1,19 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Menu, Sprout, Globe } from "lucide-react";
+import { supabase } from "../lib/Subpabase"; // ✅ import Supabase client
+import { User } from "@supabase/supabase-js";
 
 const Header = () => { 
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
 
   const navigation = [
     { name: "Home", href: "#home" }, 
     { name: "Education", href: "#education" },
-    { name: "About", href: "#about" },
-    { name: "Support", href: "#support" },
-    { name: "FAQ", href: "#faq" },
   ];
+
+  // ✅ Check Supabase session on mount + listen for auth changes
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data } = await supabase.auth.getSession();
+      setUser(data.session?.user ?? null);
+    };
+
+    checkUser();
+
+    const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => {
+      subscription.subscription.unsubscribe();
+    };
+  }, []);
+
+  // ✅ Logout function (optional)
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -41,30 +65,32 @@ const Header = () => {
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center space-x-4">
-          <Select defaultValue="en">
-            <SelectTrigger className="w-32">
-              <Globe className="h-4 w-4 mr-2" />
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="en">English</SelectItem>
-              <SelectItem value="hi">हिंदी</SelectItem>
-              <SelectItem value="bn">বাংলা</SelectItem>
-            </SelectContent>
-          </Select>
-          {/* <Button variant="outline" size="sm">
-            Login
-          </Button>
-          <Button size="sm" className="bg-gradient-hero border-0">
-            Signup
-          </Button> */}
-          <a 
-            href="/auth" 
-            className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-gradient-hero rounded-lg shadow hover:shadow-md transition-all border-0"
-          >
-            Get Started
-          </a>
-
+          {!user ? (
+            // ✅ Show Get Started only if user not logged in
+            <a 
+              href="/auth" 
+              className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-gradient-hero rounded-lg shadow hover:shadow-md transition-all border-0"
+            >
+              Get Started
+            </a>
+          ) : (
+            // ✅ Show Logout / Dashboard if user logged in
+            <>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
+              {/* <a 
+                href="/dashboard"
+                className="px-4 py-2 text-sm font-medium text-white bg-gradient-hero rounded-lg shadow hover:shadow-md transition-all border-0"
+              >
+                Dashboard
+              </a> */}
+            </>
+          )}
         </div>
 
         {/* Mobile Menu */}
@@ -102,18 +128,34 @@ const Header = () => {
                     <Globe className="h-4 w-4 mr-2" />
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="en">English</SelectItem>
-                    <SelectItem value="hi">हिंदी</SelectItem>
-                    <SelectItem value="bn">বাংলা</SelectItem>
-                  </SelectContent>
                 </Select>
-                <Button variant="outline" size="sm" className="w-full">
-                  Login
-                </Button>
-                <Button size="sm" className="w-full bg-gradient-hero border-0">
-                  Signup
-                </Button>
+
+                {!user ? (
+                  <>
+                    {/* ✅ Show login/signup if not logged in */}
+                    <Button variant="outline" size="sm" className="w-full" asChild>
+                      <a href="/auth">Login</a>
+                    </Button>
+                    <Button size="sm" className="w-full bg-gradient-hero border-0" asChild>
+                      <a href="/auth">Signup</a>
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    {/* ✅ Show Logout if logged in */}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </Button>
+                    {/* <Button size="sm" className="w-full bg-gradient-hero border-0" asChild>
+                      <a href="/dashboard">Dashboard</a>
+                    </Button> */}
+                  </>
+                )}
               </div>
             </div>
           </SheetContent>
