@@ -9,7 +9,7 @@ const Footer = () => {
   ];
 
   return ( 
-    <footer className="bg-agriculture-dark text-white">
+    <footer id="about" className="bg-agriculture-dark text-white">
       <div className="container px-4 py-12">
         <div className="grid md:grid-cols-3 gap-8">
           {/* Logo and Brand */}

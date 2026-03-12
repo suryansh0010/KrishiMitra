@@ -13,7 +13,18 @@ const Header = () => {
   const navigation = [
     { name: "Home", href: "#home" }, 
     { name: "Education", href: "#education" },
+    { name: "About", href: "#about" },
   ];
+
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace("#", "");
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+    setIsOpen(false);
+  };
 
   // ✅ Check Supabase session on mount + listen for auth changes
   useEffect(() => {
@@ -56,6 +67,7 @@ const Header = () => {
             <a
               key={item.name}
               href={item.href}
+              onClick={(e) => handleSmoothScroll(e, item.href)}
               className="text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
               {item.name}
@@ -115,7 +127,7 @@ const Header = () => {
                     key={item.name}
                     href={item.href}
                     className="text-sm font-medium text-foreground hover:text-primary transition-colors"
-                    onClick={() => setIsOpen(false)}
+                    onClick={(e) => handleSmoothScroll(e, item.href)}
                   >
                     {item.name}
                   </a>

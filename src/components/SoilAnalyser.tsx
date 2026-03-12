@@ -16,8 +16,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Leaf, Upload, Image, X, FlaskConical, Droplets } from "lucide-react";
+import { Leaf, Upload, Image, X, FlaskConical, Droplets, Sprout } from "lucide-react";
 import { toast } from "sonner";
+import { getRecommendation, type FertilizerRecommendation } from "@/lib/fertilizerRecommender";
+import FertilizerResults from "@/components/FertilizerResults";
 
 interface NpkResult {
   n_value: number;
@@ -43,6 +45,8 @@ const SoilAnalyser = () => {
   const [error, setError] = useState<string | null>(null);
   const [inputDialogOpen, setInputDialogOpen] = useState(false);
   const [resultDialogOpen, setResultDialogOpen] = useState(false);
+  const [fertilizerDialogOpen, setFertilizerDialogOpen] = useState(false);
+  const [fertilizerRec, setFertilizerRec] = useState<FertilizerRecommendation | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageUpload = () => {
@@ -386,6 +390,22 @@ const SoilAnalyser = () => {
                 decisions, validate with a laboratory soil test.
               </div>
 
+              {/* Recommend Fertilizer Button */}
+              <Button
+                className="w-full bg-gradient-to-r from-amber-500 to-agriculture-green border-0 text-white hover:shadow-lg"
+                onClick={() => {
+                  if (result) {
+                    const rec = getRecommendation(result);
+                    setFertilizerRec(rec);
+                    setResultDialogOpen(false);
+                    setFertilizerDialogOpen(true);
+                  }
+                }}
+              >
+                <Sprout className="h-4 w-4 mr-2" />
+                Recommend Fertilizer
+              </Button>
+
               {/* Analyse Another Button */}
               <Button
                 variant="outline"
@@ -398,6 +418,20 @@ const SoilAnalyser = () => {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* ── Fertilizer Recommendation Dialog ── */}
+      <FertilizerResults
+        open={fertilizerDialogOpen}
+        onOpenChange={(open) => {
+          setFertilizerDialogOpen(open);
+          if (!open) setFertilizerRec(null);
+        }}
+        recommendation={fertilizerRec}
+        onBack={() => {
+          setFertilizerDialogOpen(false);
+          setResultDialogOpen(true);
+        }}
+      />
     </>
   );
 };

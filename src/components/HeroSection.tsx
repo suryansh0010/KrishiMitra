@@ -361,6 +361,7 @@
 
 import heroFarmer from "@/assets/hero-farmer.jpg";
 import SoilAnalyser from "@/components/SoilAnalyser";
+import FertilizerRecommender from "@/components/FertilizerRecommender";
 
 const HeroSection = () => {
 
@@ -385,9 +386,10 @@ const HeroSection = () => {
           </p>
         </div>
 
-        {/* Feature Card - Centered */}
-        <div className="flex justify-center max-w-6xl mx-auto">
+        {/* Feature Cards */}
+        <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
           <SoilAnalyser />
+          <FertilizerRecommender />
         </div>
       </div>
     </section>
